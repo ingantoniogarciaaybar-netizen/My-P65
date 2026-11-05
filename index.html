@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>My P65</title>
+</head>
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Corte Ventana P65</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white; font-size: 11pt; padding: 0; }
+      .card-box { box-shadow: none !important; border: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body class="bg-slate-100 min-h-screen text-slate-800 p-4 md:p-8">
+
+  <div class="max-w-xl mx-auto card-box bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+    
+    <!-- Encabezado -->
+    <header class="bg-blue-700 text-white p-5 flex justify-between items-center">
+      <div>
+        <h1 class="text-xl font-black tracking-wide flex items-center gap-2">
+          <i class="fa-solid fa-scissors"></i> Hoja de Corte P65
+        </h1>
+        <p class="text-blue-200 text-xs mt-0.5 font-medium">Ventana Corrediza (2 Hojas)</p>
+      </div>
+      <button onclick="window.print()" class="no-print bg-white/20 hover:bg-white/30 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5">
+        <i class="fa-solid fa-print"></i> Imprimir
+      </button>
+    </header>
+
+    <div class="p-5 md:p-6 space-y-6">
+      
+      <!-- Entrada de Datos -->
+      <section>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-slate-50 p-3.5 rounded-xl border-2 border-slate-200 focus-within:border-blue-600 transition">
+            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1" for="ancho">Ancho (Pulg)</label>
+            <input type="number" step="any" id="ancho" placeholder="0.00" autofocus
+              class="w-full bg-transparent text-2xl md:text-3xl font-black text-blue-700 outline-none">
+          </div>
+          <div class="bg-slate-50 p-3.5 rounded-xl border-2 border-slate-200 focus-within:border-blue-600 transition">
+            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1" for="alto">Alto (Pulg)</label>
+            <input type="number" step="any" id="alto" placeholder="0.00"
+              class="w-full bg-transparent text-2xl md:text-3xl font-black text-blue-700 outline-none">
+          </div>
+        </div>
+      </section>
+
+      <!-- Resultados: Perfiles de Aluminio -->
+      <section>
+        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 flex items-center gap-1.5">
+          <i class="fa-solid fa-layer-group text-blue-600"></i> Perfiles de Aluminio
+        </h2>
+        <div class="overflow-hidden border border-slate-200 rounded-xl">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-500 uppercase">
+                <th class="py-2.5 px-4">Pieza</th>
+                <th class="py-2.5 px-3 text-center">Cant.</th>
+                <th class="py-2.5 px-4 text-right">Medida a Cortar</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 text-sm">
+              <!-- Rieles -->
+              <tr class="hover:bg-slate-50">
+                <td class="py-3 px-4 font-bold text-slate-700">Rieles (Sup / Inf)</td>
+                <td class="py-3 px-3 text-center font-bold text-blue-700 bg-blue-50/40">2</td>
+                <td class="py-3 px-4 text-right" id="res-rieles">
+                  <span class="text-slate-300 font-bold">-</span>
+                </td>
+              </tr>
+              <!-- Jambas -->
+              <tr class="hover:bg-slate-50">
+                <td class="py-3 px-4 font-bold text-slate-700">Jambas (Marco Lateral)</td>
+                <td class="py-3 px-3 text-center font-bold text-blue-700 bg-blue-50/40">2</td>
+                <td class="py-3 px-4 text-right" id="res-jamba">
+                  <span class="text-slate-300 font-bold">-</span>
+                </td>
+              </tr>
+              <!-- Laterales Hoja -->
+              <tr class="hover:bg-slate-50">
+                <td class="py-3 px-4 font-bold text-slate-700">Laterales de Hoja</td>
+                <td class="py-3 px-3 text-center font-bold text-blue-700 bg-blue-50/40">4</td>
+                <td class="py-3 px-4 text-right" id="res-lateral">
+                  <span class="text-slate-300 font-bold">-</span>
+                </td>
+              </tr>
+              <!-- Alfeizar -->
+              <tr class="hover:bg-slate-50">
+                <td class="py-3 px-4 font-bold text-slate-700">Alféizar (Horizontales)</td>
+                <td class="py-3 px-3 text-center font-bold text-blue-700 bg-blue-50/40">4</td>
+                <td class="py-3 px-4 text-right" id="res-alfezer">
+                  <span class="text-slate-300 font-bold">-</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Resultados: Vidrios -->
+      <section>
+        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 flex items-center gap-1.5">
+          <i class="fa-solid fa-square text-blue-600"></i> Vidrios (2 Piezas Iguales)
+        </h2>
+        <div class="grid grid-cols-2 gap-3 bg-blue-50/60 border border-blue-200 rounded-xl p-3.5">
+          
+          <div class="bg-white p-3 rounded-lg border border-blue-100 text-center shadow-sm">
+            <span class="block text-xs font-bold uppercase text-slate-400 mb-1">Ancho Vidrio</span>
+            <div id="res-vidrio-ancho">
+              <span class="text-slate-300 font-bold text-lg">-</span>
+            </div>
+          </div>
+
+          <div class="bg-white p-3 rounded-lg border border-blue-100 text-center shadow-sm">
+            <span class="block text-xs font-bold uppercase text-slate-400 mb-1">Alto Vidrio</span>
+            <div id="res-vidrio-alto">
+              <span class="text-slate-300 font-bold text-lg">-</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script>
+    // Convierte decimal a fracción de cinta métrica (resolución 1/16")
+    function formatearMedida(val) {
+      if (isNaN(val) || val <= 0) return `<span class="text-slate-300 font-bold">-</span>`;
+      
+      const entero = Math.floor(val);
+      const decimal = val - entero;
+      const dieciseisavos = Math.round(decimal * 16);
+
+      let fraccion = "";
+      let enteroFinal = entero;
+
+      if (dieciseisavos === 16) {
+        enteroFinal += 1;
+      } else if (dieciseisavos > 0) {
+        let num = dieciseisavos;
+        let den = 16;
+        while (num % 2 === 0 && den % 2 === 0) {
+          num /= 2;
+          den /= 2;
+        }
+        fraccion = `${num}/${den}`;
+      }
+
+      const textoFraccion = fraccion 
+        ? (enteroFinal > 0 ? `${enteroFinal} ${fraccion}"` : `${fraccion}"`)
+        : `${enteroFinal}"`;
+
+      return `
+        <div class="font-black text-slate-900 text-base md:text-lg leading-tight">${textoFraccion}</div>
+        <div class="text-[11px] font-mono text-slate-400">${val.toFixed(4)}"</div>
+      `;
+    }
+
+    const inputAncho = document.getElementById('ancho');
+    const inputAlto = document.getElementById('alto');
+
+    function calcular() {
+      const ancho = parseFloat(inputAncho.value);
+      const alto = parseFloat(inputAlto.value);
+
+      if (!isNaN(ancho) && !isNaN(alto) && ancho > 0 && alto > 0) {
+        // Cálculo interno con tus fórmulas de Excel
+        const alfezer = (ancho / 2) - 0.5625;
+        const jamba = alto - 2.25;
+        const lateral = alto - 0.125;
+        const rieles = ancho - 1.5;
+        const vidrioAncho = alfezer - 2.625;
+        const vidrioAlto = alto - 5.125;
+
+        // Mostrar únicamente los resultados
+        document.getElementById('res-rieles').innerHTML = formatearMedida(rieles);
+        document.getElementById('res-jamba').innerHTML = formatearMedida(jamba);
+        document.getElementById('res-lateral').innerHTML = formatearMedida(lateral);
+        document.getElementById('res-alfezer').innerHTML = formatearMedida(alfezer);
+        document.getElementById('res-vidrio-ancho').innerHTML = formatearMedida(vidrioAncho);
+        document.getElementById('res-vidrio-alto').innerHTML = formatearMedida(vidrioAlto);
+      } else {
+        const vacio = `<span class="text-slate-300 font-bold">-</span>`;
+        document.getElementById('res-rieles').innerHTML = vacio;
+        document.getElementById('res-jamba').innerHTML = vacio;
+        document.getElementById('res-lateral').innerHTML = vacio;
+        document.getElementById('res-alfezer').innerHTML = vacio;
+        document.getElementById('res-vidrio-ancho').innerHTML = vacio;
+        document.getElementById('res-vidrio-alto').innerHTML = vacio;
+      }
+    }
+
+    inputAncho.addEventListener('input', calcular);
+    inputAlto.addEventListener('input', calcular);
+  </script>index.htmlcorte-ventana-p65
+</body>
+</html>
